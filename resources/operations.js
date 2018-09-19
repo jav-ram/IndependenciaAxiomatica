@@ -17,11 +17,42 @@ const not = notInit([0,0,1]);
 // -------------------------------------------------------------------
 // OR
 const orInit = (results) => {
+
+    let r = [];
+    for (let j = 0; j < 3; j++){
+        let col = [];
+        for (let i = (j*3); i < ((j+1) * 3); i++) {
+            col.push(results[i])
+        }
+        r.push(col);
+    }
+
     return ((o1, o2) => {
-        return results[o1*3 + o2];
+        return r[o1][o2];
     }
     );
 }
+
+
+// -------------------------------------------------------------------
+// AND
+const andInit = (results) => {
+
+    let r = [];
+    for (let j = 0; j < 3; j++){
+        let col = [];
+        for (let i = (j*3); i < ((j+1) * 3); i++) {
+            col.push(results[i])
+        }
+        r.push(col);
+    }
+
+    return ((o1, o2) => {
+        return r[o1][o2];
+    }
+    );
+}
+
 
 
 const or = orInit([
@@ -40,6 +71,39 @@ const implyInit = (orl, notl) => {
 }
 
 
+
+
+// -------------------------------------------------------------------
+// IMPLIES Gentzen
+const implyInitG = (results) => {
+    let r = [];
+    for (let j = 0; j < 3; j++){
+        let col = [];
+        for (let i = (j*3); i < ((j+1) * 3); i++) {
+            col.push(results[i])
+        }
+        r.push(col);
+    }
+
+    return ((o1, o2) => {
+        return r[o1][o2];
+    }
+
+    );
+}
+
+
+// -------------------------------------------------------------------
+// DIMPLIES Gentzen
+const dimplyInitG = (implyl, andl) => {
+
+    return ((o1, o2) => {
+        return andl(implyl(o1, o2),implyl(o2, o1));
+    }
+
+    );
+}
+
 const imply = implyInit(or, not);
 
 const uno = [0,1,2];
@@ -52,11 +116,12 @@ const tres = [
     [0,0,0,1,1,1,2,2,2,0,0,0,1,1,1,2,2,2,0,0,0,1,1,1,2,2,2],
     [0,1,2,0,1,2,0,1,2,0,1,2,0,1,2,0,1,2,0,1,2,0,1,2,0,1,2],
 ]
-
+/*
 //axioma 1 
 for (let i = 0; i < uno.length; i++) {
     console.log(imply(or(uno[i],uno[i]), uno[i]));
 }
+
 
 console.log("-------------------------------------------------------")
 
@@ -92,11 +157,14 @@ console.log("-------------------------------------------------------")
 
 // axioma 5
 for (let i = 0; i < uno.length; i++) {
-    console.log(or(not(uno[i]), uno[i]));
-}
+    console.log(`(${not(uno[i])}, ${uno[i]})` , or(not(uno[i]), uno[i]));
+}*/
 
 module.exports = {
     notInit,
     orInit,
-    implyInit
+    andInit,
+    implyInit,
+    dimplyInitG,
+    implyInitG,
 }

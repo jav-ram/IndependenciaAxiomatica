@@ -41,54 +41,43 @@ while (!finish && i < notP.length) {
         axioms.push(tablaVerdad(table(3), axiom4, options));
         axioms.push(tablaVerdad(table(1), axiom5, options));
         
-    
 
-        let count = [];
-        for (let k = 0; k < axioms.length; k++ ) {
             
-            let equals = {
-                "0": 0,
-                "1": 0,
-                "2": 0,
-                "3": 0,
-                "4": 0,
-            }
-
-            let axioma;
-
-            for (let j = 0; j < axioms.length; j++) {
-                if (allEqual(axioms[j])){
-                   //console.log(j,axioms[j][0].toString(), ": ", axioms[j]);
-                   equals[axioms[j][0].toString()] += 1;
-                } else {
-                    axioma = j;
-                }
-            }
-
-
-            if (equals["0"] === 4 ) {
-                file.write("------------------------------------------------------------------");
-                file.write("\n");
-                file.write(`El axioma ${axioma + 1} es independiente con: 
-                equals: 
-                    0${equals[0]}
-                    1${equals[1]}
-                    2${equals[2]}
-                    3${equals[3]}
-                    4${equals[4]}
-                    \tOr ${orP[j].toString()}
-                    \tNot ${notP[i]}
-                    \t axioma1: ${axioms[0].toString()}
-                    \t axioma2: ${axioms[1].toString()}
-                    \t axioma3: ${axioms[2].toString()} 
-                    \t axioma4: ${axioms[3].toString()}
-                    \t axioma5: ${axioms[4].toString()}`);
-                file.write("\n");
-                
-                break;
-            }
-
+        let equals = {
+            "0": 0,
+            "1": 0,
+            "2": 0,
+            "3": 0,
+            "4": 0,
         }
+
+        let axioma;
+
+        for (let j = 0; j < axioms.length; j++) {
+            if (allEqual(axioms[j])){
+                //console.log(j,axioms[j][0].toString(), ": ", axioms[j]);
+                equals[axioms[j][0].toString()] += 1;
+            } else {
+                axioma = j;
+            }
+        }
+
+
+        if (equals["0"] === 4 ) {
+            file.write("------------------------------------------------------------------");
+            file.write("\n");
+            file.write(`El axioma ${axioma + 1} es independiente con: 
+    Or ${orP[j].toString()}
+    Not ${notP[i]}
+        axioma1: ${axioms[0].toString()}
+        axioma2: ${axioms[1].toString()}
+        axioma3: ${axioms[2].toString()} 
+        axioma4: ${axioms[3].toString()}
+        axioma5: ${axioms[4].toString()}`);
+            file.write("\n");
+        }
+
+        
 
         j++
 
